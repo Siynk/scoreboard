@@ -5,4 +5,5 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   assetsInclude: ['**/*.MP3'],
+  base: "/scoreboard/", // Palitan ng tamang repo name mo
 })
