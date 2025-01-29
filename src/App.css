@@ -1,0 +1,375 @@
+/* General Styles */
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #121212; /* Dark background for contrast */
+  color: white;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  text-align: center;
+}
+
+h1 {
+  font-size: 2.5rem;
+  color: #fff;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+/* Counter Container */
+.counter-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 1200px;
+  padding: 20px;
+  background-color: #333; /* Darker background for the counter */
+  border-radius: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.7);
+  margin: 0 auto; /* Ensures the container is centered horizontally */
+}
+
+/* Counter Style */
+.counter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #222; /* Dark background for the counter */
+  padding: 20px;
+  border-radius: 10px;
+  width: 30%;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
+  margin: 0 10px; /* Add space between counters */
+}
+
+.counter .title {
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+  color: #ff7f00; /* Orange color for team names */
+  font-weight: bold;
+}
+
+.counter .buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.buttons-left, .buttons-right {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.buttons-left button, .buttons-right button {
+  background-color: #444; /* Dark button background */
+  border: none;
+  color: white;
+  font-size: 1.2rem;
+  padding: 12px;
+  margin: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  border-radius: 8px;
+}
+
+.buttons-left button:hover, .buttons-right button:hover {
+  background-color: #ff7f00; /* Hover effect with orange color */
+}
+
+.scores {
+  font-size: 4.5rem;
+  font-weight: bold;
+  margin: 20px 0;
+  color: #fff;
+}
+
+/* Timer Container */
+.timers-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #222;
+  padding: 20px;
+  border-radius: 10px;
+  width: 30%;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
+}
+
+.timer, .shotclock-timer {
+  margin-bottom: 20px;
+}
+
+.timer h2{
+  font-size: 3rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #40d107; /* Orange color for timers */
+}
+
+.shotclock-timer h2 {
+  font-size: 3rem;
+  font-weight: bold;
+  margin-top: 15px;
+  color: #ff1100; /* Orange color for timers */
+}
+
+button {
+  background-color: #444; /* Dark button background */
+  border: none;
+  color: white;
+  font-size: 1.2rem;
+  padding: 12px;
+  margin: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  border-radius: 8px;
+}
+
+button:hover {
+  background-color: #ff7f00; /* Hover effect with orange color */
+}
+
+button:focus {
+  outline: none;
+}
+
+.circle {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: gray;
+  margin: 5px;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.circle.red {
+  background-color: red;
+}
+
+/* Modal Background */
+.modal-EditTime {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.8); /* Darker background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Modal Content */
+.modal-content-EditTime {
+  background: linear-gradient(145deg, #2c3e50, #34495e); /* Dark gradient */
+  padding: 30px;
+  border-radius: 15px;
+  width: 350px;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4), 0 1px 3px rgba(0, 0, 0, 0.2); /* Dark shadow */
+  color: white;
+  animation: scaleUp 0.3s ease-in-out;
+}
+
+/* Input Fields */
+.modal-content-EditTime input {
+  margin: 15px 0;
+  padding: 10px;
+  width: 80%;
+  border-radius: 8px;
+  border: 2px solid #fff;
+  background-color: transparent;
+  color: white;
+  font-size: 16px;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.modal-content-EditTime input:focus {
+  border-color: #2980b9; /* Blue focus border */
+  outline: none;
+  background-color: #2c3e50; /* Darker background on focus */
+}
+
+/* Buttons */
+.modal-content-EditTime button {
+  margin: 10px 10px;
+  padding: 12px 20px;
+  background-color: #2980b9; /* Dark blue */
+  color: white;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.modal-content-EditTime button:hover {
+  background-color: #3498db; /* Lighter blue on hover */
+}
+
+.modal-content-EditTime button:active {
+  transform: scale(0.98);
+}
+
+/* Close Button */
+.modal-content-EditTime button.cancel {
+  background-color: #e74c3c; /* Red for cancel */
+}
+
+.modal-content-EditTime button.cancel:hover {
+  background-color: #c0392b; /* Darker red on hover */
+}
+
+.quarters{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 25px;
+}
+
+/* Modal Background for Score Edit */
+.modal-EditScore {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.8); /* Darker background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Modal Content for Score Edit */
+.modal-content-EditScore {
+  background: linear-gradient(145deg, #2c3e50, #34495e); /* Dark gradient */
+  padding: 30px;
+  border-radius: 15px;
+  width: 350px;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4), 0 1px 3px rgba(0, 0, 0, 0.2); /* Dark shadow */
+  color: white;
+  animation: scaleUp 0.3s ease-in-out;
+}
+
+/* Input Fields for Score Edit */
+.modal-content-EditScore input {
+  margin: 15px 0;
+  padding: 15px;
+  width: 80%;
+  border-radius: 8px;
+  border: 2px solid #fff;
+  background-color: transparent;
+  color: white;
+  font-size: 16px;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.modal-content-EditScore input:focus {
+  border-color: #2980b9; /* Blue focus border */
+  outline: none;
+  background-color: #2c3e50; /* Darker background on focus */
+}
+
+/* Buttons for Score Edit Modal */
+.modal-content-EditScore button {
+  margin: 10px 10px;
+  padding: 12px 20px;
+  background-color: #2980b9; /* Dark blue */
+  color: white;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.modal-content-EditScore button:hover {
+  background-color: #3498db; /* Lighter blue on hover */
+}
+
+.modal-content-EditScore button:active {
+  transform: scale(0.98);
+}
+
+/* Cancel Button for Score Edit Modal */
+.modal-content-EditScore button.cancel {
+  background-color: #e74c3c; /* Red for cancel */
+}
+
+.modal-content-EditScore button.cancel:hover {
+  background-color: #c0392b; /* Darker red on hover */
+}
+
+/* Modal Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scaleUp {
+  from {
+    transform: scale(0.9);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+/* Modal Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scaleUp {
+  from {
+    transform: scale(0.9);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .counter-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .counter, .timers-container {
+    width: 80%;
+    margin-bottom: 20px;
+  }
+
+  .buttons-left, .buttons-right {
+    flex-direction: column;
+  }
+
+  .buttons-left button, .buttons-right button {
+    width: 100%;
+  }
+}
