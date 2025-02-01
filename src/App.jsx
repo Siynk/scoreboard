@@ -25,6 +25,10 @@ function App() {
   const [homeFouls, setHomeFouls] = useState([false, false, false, false, false]); // 5 fouls for Home
   const [awayFouls, setAwayFouls] = useState([false, false, false, false, false]); // 5 fouls for Away
 
+  //State for timeouts
+  const [homeTimeouts, setHomeTimeouts] = useState([false, false, false]);  // 3 timeouts for Home
+  const [awayTimeouts, setAwayTimeouts] = useState([false, false, false]);  // 3 timeouts for Away
+
   // State for modal visibility and custom time input
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [customTime, setCustomTime] = useState({ minutes: 10, seconds: 0 });
@@ -168,6 +172,44 @@ function App() {
     }
   };
 
+  // Toggle timeout color (red/normal) for a team
+const toggleTimeout = (team, index) => {
+  if (team === 'home') {
+    const newTimeouts = [...homeTimeouts];
+    newTimeouts[index] = !newTimeouts[index]; // Toggle between red and normal
+    setHomeTimeouts(newTimeouts);
+  } else {
+    const newTimeouts = [...awayTimeouts];
+    newTimeouts[index] = !newTimeouts[index]; // Toggle between red and normal
+    setAwayTimeouts(newTimeouts);
+  }
+};
+
+// Handle timeout and play sound for home
+const handleTimeoutHome = () => {
+  new Audio(buzzerSound).play();
+  setIsRunning(false); // Stop the timer
+  const firstAvailableIndex = homeTimeouts.findIndex(timeout => !timeout);
+  if (firstAvailableIndex !== -1) {
+    toggleTimeout('home', firstAvailableIndex); // Trigger the first available timeout
+  }
+};
+
+// Handle timeout and play sound for away
+const handleTimeoutAway = () => {
+  new Audio(buzzerSound).play();
+  setIsRunning(false); // Stop the timer
+  const firstAvailableIndex = awayTimeouts.findIndex(timeout => !timeout);
+  if (firstAvailableIndex !== -1) {
+    toggleTimeout('away', firstAvailableIndex); // Trigger the first available timeout
+  }
+};
+
+
+
+
+  
+
   // Function to handle custom time input
   const handleCustomTimeChange = (e) => {
     const { name, value } = e.target;
@@ -218,6 +260,35 @@ function App() {
     };
   }, [isRunning]);
 
+  // State for editable team titles
+  const [isEditingHome, setIsEditingHome] = useState(false);
+  const [isEditingAway, setIsEditingAway] = useState(false);
+  const [homeTitle, setHomeTitle] = useState('Home');
+  const [awayTitle, setAwayTitle] = useState('Away');
+
+  // Other states and refs...
+
+  // Handle home team title change
+  const handleHomeTitleChange = (e) => {
+    setHomeTitle(e.target.value);
+  };
+
+  // Handle away team title change
+  const handleAwayTitleChange = (e) => {
+    setAwayTitle(e.target.value);
+  };
+
+  // Function to toggle editing for home team title
+  const toggleEditHome = () => {
+    setIsEditingHome(!isEditingHome);
+  };
+
+  // Function to toggle editing for away team title
+  const toggleEditAway = () => {
+    setIsEditingAway(!isEditingAway);
+  };
+
+
   return (
     <>
       <header>
@@ -227,12 +298,26 @@ function App() {
       <div className="counter-container">
         {/* Home Counter */}
         <div className="counter">
-          <h2 className='title'>Home</h2>
+        <h2 className='title'>
+            {isEditingHome ? (
+              <input
+                type="text"
+                value={homeTitle}
+                onChange={handleHomeTitleChange}
+                onBlur={toggleEditHome} // Save and exit edit when focus leaves input
+                autoFocus
+              />
+            ) : (
+              <>
+                {homeTitle} <FontAwesomeIcon icon={faEdit} onClick={toggleEditHome} />
+              </>
+            )}
+          </h2>
           <div className="buttons">
             <div className="buttons-left">
-              <button onClick={() => incrementScore('home', 1)}>+1</button>
-              <button onClick={() => incrementScore('home', 2)}>+2</button>
-              <button onClick={() => incrementScore('home', 3)}>+3</button>
+              <button onClick={() => { incrementScore('home', 1); setShotClock(24);}}>+1</button>
+              <button onClick={() => { incrementScore('home', 2); setShotClock(24);}}>+2</button>
+              <button onClick={() => { incrementScore('home', 3); setShotClock(24);}}>+3</button>
             </div>
             <h2 className="scores">{homeScore < 10 ? `0${homeScore}` : homeScore}</h2>
             <div className="buttons-right">
@@ -253,8 +338,21 @@ function App() {
               ))}
             </div>
 
-            <div className='time-out-left'>  
-            <button onClick={() => new Audio(buzzerSound).play()}>Timeout</button>
+            <div>
+              <div className='timeout-counter'>
+                <h3>Timeouts</h3>
+                {homeTimeouts.map((timeout, index) => (
+                  <div
+                    key={index}
+                    className={`circle ${timeout ? 'red' : ''}`}
+                    onClick={() => toggleTimeout('home', index)}
+                  ></div>
+                ))}
+              </div>
+
+              <div className='time-out-left'>
+                <button onClick={handleTimeoutHome}>Timeout</button>
+              </div>
             </div>
 
             <div className='substitution-left'>
@@ -319,12 +417,26 @@ function App() {
 
         {/* Away Counter */}
         <div className="counter">
-          <h2 className='title'>Away</h2>
+        <h2 className='title'>
+            {isEditingAway ? (
+              <input
+                type="text"
+                value={awayTitle}
+                onChange={handleAwayTitleChange}
+                onBlur={toggleEditAway} // Save and exit edit when focus leaves input
+                autoFocus
+              />
+            ) : (
+              <>
+                {awayTitle} <FontAwesomeIcon icon={faEdit} onClick={toggleEditAway} />
+              </>
+            )}
+          </h2>
           <div className="buttons">
             <div className="buttons-left">
-              <button onClick={() => incrementScore('away', 1)}>+1</button>
-              <button onClick={() => incrementScore('away', 2)}>+2</button>
-              <button onClick={() => incrementScore('away', 3)}>+3</button>
+              <button onClick={() => { incrementScore('away', 1); setShotClock(24);}}>+1</button>
+              <button onClick={() => { incrementScore('away', 2); setShotClock(24);}}>+2</button>
+              <button onClick={() => { incrementScore('away', 3); setShotClock(24);}}>+3</button>
             </div>
             <h2 className="scores">{awayScore < 10 ? `0${awayScore}` : awayScore}</h2>
             <div className="buttons-right">
@@ -345,10 +457,23 @@ function App() {
               ))}
             </div>
           </div>
-
-          <div className='time-out-left'>  
-              <button onClick={() => new Audio(buzzerSound).play()}>Timeout</button>
+          
+          <div>
+            <div className='timeout-counter'>
+              <h3>Timeouts</h3>
+              {awayTimeouts.map((timeout, index) => (
+                <div
+                  key={index}
+                  className={`circle ${timeout ? 'red' : ''}`}
+                  onClick={() => toggleTimeout('away', index)}
+                ></div>
+              ))}
             </div>
+
+            <div className='time-out-left'>
+              <button onClick={handleTimeoutAway}>Timeout</button>
+            </div>
+          </div>
 
             <div className='substitution-left'>
             <button onClick={() => new Audio(subSound).play()}>Substitution</button>
